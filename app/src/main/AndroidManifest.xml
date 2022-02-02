@@ -11,11 +11,18 @@
         android:theme="@style/Theme.MyApplication">
         <activity
             android:name=".Golf"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
             android:label="@string/title_activity_golf"
-            android:theme="@style/Theme.MyApplication.NoActionBar"></activity>
+            android:screenOrientation="sensorLandscape"
+            android:theme="@style/Theme.MyApplication.NoActionBar">
+
+        </activity>
         <activity
             android:name=".MainActivity"
-            android:exported="true">
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:screenOrientation="sensorLandscape"
+            android:theme="@style/Theme.MyApplication.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
