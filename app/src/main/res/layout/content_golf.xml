@@ -7,6 +7,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
+        android:id="@+id/screen"
         android:layout_height="match_parent">
 
         <ImageView
@@ -19,6 +20,7 @@
             android:layout_width="50dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="90dp"
+            android:id="@+id/power"
             android:layout_marginTop="80dp"
             android:layout_marginBottom="30dp"
             android:src="@drawable/power0" />
@@ -26,9 +28,19 @@
 
         <ImageView
             android:layout_width="400dp"
-            android:layout_marginVertical="10dp"
             android:layout_height="match_parent"
-            android:src="@drawable/player1"/>
+            android:id="@+id/player"
+            android:layout_marginVertical="10dp"
+            android:src="@drawable/player1" />
+
+        <ImageView
+            android:layout_width="30dp"
+            android:src="@drawable/ball"
+            android:layout_height="30dp"
+            android:id="@+id/ball"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="270dp"
+            android:layout_marginBottom="15dp" />
 
 
     </RelativeLayout>
