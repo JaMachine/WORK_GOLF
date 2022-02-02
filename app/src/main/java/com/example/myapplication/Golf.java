@@ -30,4 +30,8 @@ public class Golf extends AppCompatActivity implements Theme{
                 View.SYSTEM_UI_FLAG_HIDE_NAVIGATION|
                         View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
     }
+
+    @Override
+    public void onBackPressed() {
+    }
 }
