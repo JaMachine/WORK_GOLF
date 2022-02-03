@@ -8,6 +8,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Handler;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
@@ -110,12 +112,36 @@ public class Golf extends AppCompatActivity implements Theme {
         if (playerState == 4) {
             player.setImageResource(R.drawable.player4);
         }
+        if (playerState == 5) {
+            TranslateAnimation an = new TranslateAnimation(0.0f, -3000.0f, 0.0f, 0.0f);
+            an.setDuration(1800 - (powerLevel * 100));
+            an.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
 
-        if (playerState < 6) {
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    player.setVisibility(View.GONE);
+                    power.setVisibility(View.GONE);
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+
+                }
+            });
+
+            player.startAnimation(an);
+            power.startAnimation(an);
+        }
+
+        if (playerState < 5) {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                        hitTheBall();
+                    hitTheBall();
                 }
             }, 7);
         }
