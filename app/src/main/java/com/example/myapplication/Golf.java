@@ -20,8 +20,8 @@ import com.example.myapplication.databinding.ActivityGolfBinding;
 
 public class Golf extends AppCompatActivity implements Theme {
     private boolean add = true, steady = true;
-    private int powerLevel = 0;
-    private ImageView power;
+    private int powerLevel = 0, playerState = 1;
+    private ImageView power, player;
     private RelativeLayout screen;
 
     @Override
@@ -29,12 +29,14 @@ public class Golf extends AppCompatActivity implements Theme {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_golf);
         hideNavigationBar();
+        player = findViewById(R.id.player);
         power = findViewById(R.id.power);
         screen = findViewById(R.id.screen);
         screen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 steady = false;
+                hitTheBall();
             }
         });
         powerTimer();
@@ -95,5 +97,27 @@ public class Golf extends AppCompatActivity implements Theme {
                     powerTimer();
             }
         }, 50);
+    }
+
+    private void hitTheBall() {
+        playerState++;
+        if (playerState == 2) {
+            player.setImageResource(R.drawable.player2);
+        }
+        if (playerState == 3) {
+            player.setImageResource(R.drawable.player3);
+        }
+        if (playerState == 4) {
+            player.setImageResource(R.drawable.player4);
+        }
+
+        if (playerState < 6) {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                        hitTheBall();
+                }
+            }, 7);
+        }
     }
 }
