@@ -7,6 +7,7 @@ import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
@@ -20,10 +21,12 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.example.myapplication.databinding.ActivityGolfBinding;
 
+import static android.content.ContentValues.TAG;
+
 public class Golf extends AppCompatActivity implements Theme {
     private boolean add = true, steady = true;
-    private int powerLevel = 0, playerState = 1;
-    private ImageView power, player;
+    private int powerLevel = 0, playerState = 1, speed = 7;
+    private ImageView power, player, ball, stick;
     private RelativeLayout screen;
 
     @Override
@@ -32,6 +35,8 @@ public class Golf extends AppCompatActivity implements Theme {
         setContentView(R.layout.content_golf);
         hideNavigationBar();
         player = findViewById(R.id.player);
+        ball = findViewById(R.id.ball);
+        stick = findViewById(R.id.stick);
         power = findViewById(R.id.power);
         screen = findViewById(R.id.screen);
         screen.setOnClickListener(new View.OnClickListener() {
@@ -90,12 +95,12 @@ public class Golf extends AppCompatActivity implements Theme {
                 add = false;
                 break;
         }
-        if (add) powerLevel++;
-        else powerLevel--;
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 if (steady)
+                    if (add) powerLevel++;
+                    else powerLevel--;
                     powerTimer();
             }
         }, 50);
@@ -135,15 +140,47 @@ public class Golf extends AppCompatActivity implements Theme {
 
             player.startAnimation(an);
             power.startAnimation(an);
+            speed = 1000 - (powerLevel * 100);
         }
 
-        if (playerState < 5) {
+        if (playerState == 7) {
+            float distance = 540.0f;
+            distance -= (powerLevel * 60);
+            Log.e(TAG, "POSITION = " + distance);
+            TranslateAnimation stickAn = new TranslateAnimation(2000.0f, distance, 0.0f, 0.0f);
+            stickAn.setDuration(1800 - (powerLevel * 100));
+            stickAn.setFillAfter(true);
+            float finalDistance = distance;
+            stickAn.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    if (finalDistance == 0.0f) {
+                        stick.setImageResource(R.drawable.stick_hole_with_ball);
+                        ball.setVisibility(View.GONE);
+                    }
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+
+                }
+            });
+            stick.setVisibility(View.VISIBLE);
+            stick.startAnimation(stickAn);
+        }
+
+        if (playerState < 500000) {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     hitTheBall();
                 }
-            }, 7);
+            }, speed);
         }
     }
 }
