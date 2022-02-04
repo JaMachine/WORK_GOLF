@@ -2,8 +2,6 @@ package com.example.myapplication;
 
 import android.os.Bundle;
 
-import com.google.android.material.snackbar.Snackbar;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Handler;
@@ -14,36 +12,52 @@ import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
-
-import com.example.myapplication.databinding.ActivityGolfBinding;
-
 import static android.content.ContentValues.TAG;
 
 public class Golf extends AppCompatActivity implements Theme {
-    private boolean add = true, steady = true;
+    private boolean add = true, steady = true, game = true, level2 = true, level1 = true;
     private int powerLevel = 0, playerState = 1, speed = 7;
-    private ImageView power, player, ball, stick;
-    private RelativeLayout screen;
+    private ImageView power, player, ball, stick, pause, star1, star2, star3, star4, star5;
+    private RelativeLayout screen1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_golf);
         hideNavigationBar();
+        star1 = findViewById(R.id.star1);
+        star2 = findViewById(R.id.star2);
+        star3 = findViewById(R.id.star3);
+        star4 = findViewById(R.id.star4);
+        star5 = findViewById(R.id.star5);
+        pause = findViewById(R.id.pause);
         player = findViewById(R.id.player);
         ball = findViewById(R.id.ball);
         stick = findViewById(R.id.stick);
         power = findViewById(R.id.power);
-        screen = findViewById(R.id.screen);
-        screen.setOnClickListener(new View.OnClickListener() {
+        screen1 = findViewById(R.id.screen1);
+        pause.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (game) {
+                    game = false;
+                    pause.setImageResource(R.drawable.continue_button);
+                    screen1.setVisibility(View.GONE);
+                } else {
+                    game = true;
+                    screen1.setVisibility(View.VISIBLE);
+                    pause.setImageResource(R.drawable.pause_button);
+                }
+            }
+        });
+        screen1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 steady = false;
                 hitTheBall();
+                if (!level2){
+                    recreate();
+                }
             }
         });
         powerTimer();
@@ -101,7 +115,7 @@ public class Golf extends AppCompatActivity implements Theme {
                 if (steady)
                     if (add) powerLevel++;
                     else powerLevel--;
-                    powerTimer();
+                powerTimer();
             }
         }, 50);
     }
@@ -163,6 +177,80 @@ public class Golf extends AppCompatActivity implements Theme {
                         stick.setImageResource(R.drawable.stick_hole_with_ball);
                         ball.setVisibility(View.GONE);
                     }
+                    switch (powerLevel) {
+                        case 9:
+                            star5.setImageResource(R.drawable.star_3);
+                            star4.setImageResource(R.drawable.star_3);
+                            star3.setImageResource(R.drawable.star_3);
+                            star2.setImageResource(R.drawable.star_3);
+                            star1.setImageResource(R.drawable.star_3);
+                            level2 = false;
+                            break;
+                        case 8:
+                            star5.setImageResource(R.drawable.star_2);
+                            star4.setImageResource(R.drawable.star_3);
+                            star3.setImageResource(R.drawable.star_3);
+                            star2.setImageResource(R.drawable.star_3);
+                            star1.setImageResource(R.drawable.star_3);
+                            break;
+                        case 7:
+                            star5.setImageResource(R.drawable.star_1);
+                            star4.setImageResource(R.drawable.star_3);
+                            star3.setImageResource(R.drawable.star_3);
+                            star2.setImageResource(R.drawable.star_3);
+                            star1.setImageResource(R.drawable.star_3);
+                            break;
+                        case 6:
+                            star5.setImageResource(R.drawable.star_empty);
+                            star4.setImageResource(R.drawable.star_2);
+                            star3.setImageResource(R.drawable.star_3);
+                            star2.setImageResource(R.drawable.star_3);
+                            star1.setImageResource(R.drawable.star_3);
+                            break;
+                        case 5:
+                            star5.setImageResource(R.drawable.star_empty);
+                            star4.setImageResource(R.drawable.star_1);
+                            star3.setImageResource(R.drawable.star_3);
+                            star2.setImageResource(R.drawable.star_3);
+                            star1.setImageResource(R.drawable.star_3);
+                            break;
+                        case 4:
+                            star5.setImageResource(R.drawable.star_empty);
+                            star4.setImageResource(R.drawable.star_empty);
+                            star3.setImageResource(R.drawable.star_2);
+                            star2.setImageResource(R.drawable.star_3);
+                            star1.setImageResource(R.drawable.star_3);
+                            break;
+                        case 3:
+                            star5.setImageResource(R.drawable.star_empty);
+                            star4.setImageResource(R.drawable.star_empty);
+                            star3.setImageResource(R.drawable.star_1);
+                            star2.setImageResource(R.drawable.star_3);
+                            star1.setImageResource(R.drawable.star_3);
+                            break;
+                        case 2:
+                            star5.setImageResource(R.drawable.star_empty);
+                            star4.setImageResource(R.drawable.star_empty);
+                            star3.setImageResource(R.drawable.star_empty);
+                            star2.setImageResource(R.drawable.star_2);
+                            star1.setImageResource(R.drawable.star_3);
+                            break;
+                        case 1:
+                            star5.setImageResource(R.drawable.star_empty);
+                            star4.setImageResource(R.drawable.star_empty);
+                            star3.setImageResource(R.drawable.star_empty);
+                            star2.setImageResource(R.drawable.star_1);
+                            star1.setImageResource(R.drawable.star_3);
+                            break;
+                        case 0:
+                            star5.setImageResource(R.drawable.star_empty);
+                            star4.setImageResource(R.drawable.star_empty);
+                            star3.setImageResource(R.drawable.star_empty);
+                            star2.setImageResource(R.drawable.star_empty);
+                            star1.setImageResource(R.drawable.star_2);
+                            break;
+                    }
+                    level1 = false;
                 }
 
                 @Override
