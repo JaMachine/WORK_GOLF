@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.media.MediaPlayer;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,6 +20,7 @@ public class Golf extends AppCompatActivity implements Theme {
     private int powerLevel = 0, playerState = 1, speed = 7, hitState = 0;
     private ImageView power, power2, player, ball, ball2, stick, pause, star1, star2, star3, star4, star5, hit, hole;
     private RelativeLayout screen1, screen2, mainScreen;
+    MediaPlayer mediaPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +67,7 @@ public class Golf extends AppCompatActivity implements Theme {
             public void onClick(View view) {
                 steady = false;
                 hitTheBall();
+                if (finish) recreate();
                 if (!level1) {
                     screen1.setVisibility(View.GONE);
                     screen2.setVisibility(View.VISIBLE);
@@ -155,6 +158,16 @@ public class Golf extends AppCompatActivity implements Theme {
         }
         if (hitState == 4) {
             hit.setImageResource(R.drawable.a107);
+            if (mediaPlayer != null) {
+                try {
+                    mediaPlayer.release();
+                    mediaPlayer = null;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            mediaPlayer = MediaPlayer.create(this, R.raw.kick);
+            mediaPlayer.start();
         }
         if (hitState == 5) {
             TranslateAnimation an = new TranslateAnimation(0.0f, -700.0f, 0.0f, 0.0f);
@@ -171,6 +184,16 @@ public class Golf extends AppCompatActivity implements Theme {
                     hole.setImageResource(R.drawable.hole_with_ball);
                     level2 = false;
                     finish = true;
+                    if (mediaPlayer != null) {
+                        try {
+                            mediaPlayer.release();
+                            mediaPlayer = null;
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.hit);
+                    mediaPlayer.start();
                 }
 
                 @Override
@@ -198,6 +221,16 @@ public class Golf extends AppCompatActivity implements Theme {
         }
         if (playerState == 4) {
             player.setImageResource(R.drawable.player4);
+            if (mediaPlayer != null) {
+                try {
+                    mediaPlayer.release();
+                    mediaPlayer = null;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            mediaPlayer = MediaPlayer.create(this, R.raw.kick);
+            mediaPlayer.start();
         }
         if (playerState == 5) {
             TranslateAnimation an = new TranslateAnimation(0.0f, -3000.0f, 0.0f, 0.0f);
@@ -212,6 +245,20 @@ public class Golf extends AppCompatActivity implements Theme {
                 public void onAnimationEnd(Animation animation) {
                     player.setVisibility(View.GONE);
                     power.setVisibility(View.GONE);
+                    if (powerLevel == 9) {
+                        finish = true;
+                        level2 = false;
+                        if (mediaPlayer != null) {
+                            try {
+                                mediaPlayer.release();
+                                mediaPlayer = null;
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.hit);
+                        mediaPlayer.start();
+                    }
                 }
 
                 @Override
