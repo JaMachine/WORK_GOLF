@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_screen"
     android:layout_width="match_parent"
-    android:background="@drawable/back"
     android:layout_height="match_parent"
+    android:background="@drawable/back"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <RelativeLayout
-        android:layout_width="match_parent"
         android:id="@+id/screen1"
-        android:layout_height="match_parent">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
 
         <ImageView
             android:layout_width="match_parent"
@@ -18,86 +20,121 @@
             android:src="@drawable/back" />
 
         <ImageView
+            android:id="@+id/power"
             android:layout_width="50dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="90dp"
-            android:id="@+id/power"
             android:layout_marginTop="80dp"
             android:layout_marginBottom="30dp"
             android:src="@drawable/power0" />
 
 
         <ImageView
+            android:id="@+id/player"
             android:layout_width="400dp"
             android:layout_height="match_parent"
-            android:id="@+id/player"
             android:layout_marginVertical="10dp"
             android:src="@drawable/player1" />
 
         <ImageView
+            android:id="@+id/stick"
             android:layout_width="250dp"
             android:layout_height="match_parent"
-            android:layout_marginTop="120dp"
-            android:id="@+id/stick"
-            android:visibility="gone"
             android:layout_marginLeft="210dp"
-            android:src="@drawable/stick_hole" />
+            android:layout_marginTop="120dp"
+            android:src="@drawable/stick_hole"
+            android:visibility="gone" />
 
         <ImageView
-            android:layout_width="30dp"
-            android:src="@drawable/ball"
-            android:layout_height="30dp"
             android:id="@+id/ball"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_alignParentBottom="true"
             android:layout_marginLeft="270dp"
-            android:layout_marginBottom="15dp" />
+            android:layout_marginBottom="15dp"
+            android:src="@drawable/ball" />
 
         <ImageView
             android:id="@+id/star5"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginRight="110dp"
             android:layout_alignParentRight="true"
             android:layout_marginTop="20dp"
+            android:layout_marginRight="110dp"
             android:src="@drawable/star_empty" />
 
         <ImageView
             android:id="@+id/star4"
             android:layout_width="50dp"
             android:layout_height="50dp"
+            android:layout_marginTop="20dp"
             android:layout_marginRight="10dp"
             android:layout_toLeftOf="@id/star5"
-            android:layout_marginTop="20dp"
             android:src="@drawable/star_empty" />
 
         <ImageView
             android:id="@+id/star3"
             android:layout_width="50dp"
             android:layout_height="50dp"
+            android:layout_marginTop="20dp"
             android:layout_marginRight="10dp"
             android:layout_toLeftOf="@id/star4"
-            android:layout_marginTop="20dp"
             android:src="@drawable/star_empty" />
 
         <ImageView
             android:id="@+id/star2"
             android:layout_width="50dp"
             android:layout_height="50dp"
+            android:layout_marginTop="20dp"
             android:layout_marginRight="10dp"
             android:layout_toLeftOf="@id/star3"
-            android:layout_marginTop="20dp"
             android:src="@drawable/star_empty" />
 
         <ImageView
             android:id="@+id/star1"
             android:layout_width="50dp"
             android:layout_height="50dp"
+            android:layout_marginTop="20dp"
             android:layout_marginRight="10dp"
             android:layout_toLeftOf="@id/star2"
-            android:layout_marginTop="20dp"
             android:src="@drawable/star_empty" />
 
 
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/screen2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/back_with_hole">
+
+        <ImageView
+            android:id="@+id/power2"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="80dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="30dp"
+            android:src="@drawable/power0" />
+
+        <ImageView
+            android:id="@+id/hit"
+            android:layout_width="400dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="-40dp"
+            android:layout_marginBottom="30dp"
+            android:layout_toRightOf="@id/ball2"
+            android:src="@drawable/a107" />
+
+        <ImageView
+            android:id="@+id/ball2"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="40dp"
+            android:src="@drawable/ball08" />
 
     </RelativeLayout>
 

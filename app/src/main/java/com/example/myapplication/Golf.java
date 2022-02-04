@@ -18,13 +18,15 @@ public class Golf extends AppCompatActivity implements Theme {
     private boolean add = true, steady = true, game = true, level2 = true, level1 = true;
     private int powerLevel = 0, playerState = 1, speed = 7;
     private ImageView power, player, ball, stick, pause, star1, star2, star3, star4, star5;
-    private RelativeLayout screen1;
+    private RelativeLayout screen1, screen2, mainScreen;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_golf);
         hideNavigationBar();
+        screen2 = findViewById(R.id.screen2);
+        mainScreen = findViewById(R.id.main_screen);
         star1 = findViewById(R.id.star1);
         star2 = findViewById(R.id.star2);
         star3 = findViewById(R.id.star3);
@@ -50,13 +52,17 @@ public class Golf extends AppCompatActivity implements Theme {
                 }
             }
         });
-        screen1.setOnClickListener(new View.OnClickListener() {
+        mainScreen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 steady = false;
                 hitTheBall();
                 if (!level2){
                     recreate();
+                }
+                if (!level1){
+                    screen1.setVisibility(View.GONE);
+                    screen2.setVisibility(View.VISIBLE);
                 }
             }
         });
