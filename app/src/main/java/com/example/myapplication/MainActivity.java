@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -74,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
             if (loading.getUrl().length() > 50) {
                 loadingScreen.setVisibility(View.GONE);
                 trueveble = true;
+                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
             }
         }
         if (finalCount < 60) {
