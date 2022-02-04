@@ -1,6 +1,8 @@
 package com.example.myapplication;
 
+import android.content.Intent;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,7 +20,7 @@ import static android.content.ContentValues.TAG;
 public class Golf extends AppCompatActivity implements Theme {
     private boolean add = true, steady = true, game = true, level2 = true, level1 = true, finish = false;
     private int powerLevel = 0, playerState = 1, speed = 7, hitState = 0;
-    private ImageView power, power2, player, ball, ball2, stick, pause, star1, star2, star3, star4, star5, hit, hole;
+    private ImageView power, power2, player, ball, ball2, stick, pause, star1, star2, star3, star4, star5, hit, hole, info, exit;
     private RelativeLayout screen1, screen2, mainScreen;
     MediaPlayer mediaPlayer;
 
@@ -29,7 +31,9 @@ public class Golf extends AppCompatActivity implements Theme {
         hideNavigationBar();
         screen2 = findViewById(R.id.screen2);
         hit = findViewById(R.id.hit);
+        info = findViewById(R.id.info);
         hole = findViewById(R.id.hole);
+        exit = findViewById(R.id.exit);
         ball2 = findViewById(R.id.ball2);
         mainScreen = findViewById(R.id.main_screen);
         power2 = findViewById(R.id.power2);
@@ -44,6 +48,18 @@ public class Golf extends AppCompatActivity implements Theme {
         stick = findViewById(R.id.stick);
         power = findViewById(R.id.power);
         screen1 = findViewById(R.id.screen1);
+        info.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com")));
+            }
+        });
+        exit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
         pause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
