@@ -1,13 +1,17 @@
 package com.example.myapplication;
 
+import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Handler;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
@@ -19,16 +23,20 @@ import static android.content.ContentValues.TAG;
 
 public class Golf extends AppCompatActivity implements Theme {
     private boolean add = true, steady = true, game = true, level2 = true, level1 = true, finish = false;
-    private int powerLevel = 0, playerState = 1, speed = 7, hitState = 0;
+    private int powerLevel = 0, playerState = 1, speed = 7, hitState = 0, feedback = 100;
     private ImageView power, power2, player, ball, ball2, stick, pause, star1, star2, star3, star4, star5, hit, hole, info, exit;
     private RelativeLayout screen1, screen2, mainScreen;
     MediaPlayer mediaPlayer;
+    Vibrator vibrator;
+    Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_golf);
         hideNavigationBar();
+        context = this;
+        vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
         screen2 = findViewById(R.id.screen2);
         hit = findViewById(R.id.hit);
         info = findViewById(R.id.info);
@@ -174,6 +182,11 @@ public class Golf extends AppCompatActivity implements Theme {
         }
         if (hitState == 4) {
             hit.setImageResource(R.drawable.a107);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                vibrator.vibrate(VibrationEffect.createOneShot(feedback, VibrationEffect.DEFAULT_AMPLITUDE));
+            } else {
+                vibrator.vibrate(feedback);
+            }
             if (mediaPlayer != null) {
                 try {
                     mediaPlayer.release();
@@ -237,6 +250,11 @@ public class Golf extends AppCompatActivity implements Theme {
         }
         if (playerState == 4) {
             player.setImageResource(R.drawable.player4);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                vibrator.vibrate(VibrationEffect.createOneShot(feedback, VibrationEffect.DEFAULT_AMPLITUDE));
+            } else {
+                vibrator.vibrate(feedback);
+            }
             if (mediaPlayer != null) {
                 try {
                     mediaPlayer.release();
