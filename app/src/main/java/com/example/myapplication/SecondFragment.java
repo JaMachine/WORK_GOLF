@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.app.Application;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,12 +11,21 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.myapplication.databinding.FragmentSecondBinding;
+import com.onesignal.OneSignal;
 
-public class SecondFragment extends Fragment {
+public class SecondFragment extends Application {
 
     private FragmentSecondBinding binding;
+    private static final String ONESIGNAL_APP_ID = "9262478a-de9b-45a2-bc98-b5a728315a8c";
 
     @Override
+    public void onCreate() {
+        super.onCreate();
+        OneSignal.initWithContext(this);
+        OneSignal.setAppId(ONESIGNAL_APP_ID);
+    }
+
+
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
@@ -27,20 +37,18 @@ public class SecondFragment extends Fragment {
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
 
         binding.buttonSecond.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
-                NavHostFragment.findNavController(SecondFragment.this)
-                        .navigate(R.id.action_SecondFragment_to_FirstFragment);
+
             }
         });
     }
 
-    @Override
+
     public void onDestroyView() {
-        super.onDestroyView();
         binding = null;
     }
 
