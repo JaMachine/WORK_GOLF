@@ -15,7 +15,7 @@ import android.widget.RelativeLayout;
 import static android.content.ContentValues.TAG;
 
 public class Golf extends AppCompatActivity implements Theme {
-    private boolean add = true, steady = true, game = true, level2 = true, level1 = true;
+    private boolean add = true, steady = true, game = true, level2 = true, level1 = true, finish = false;
     private int powerLevel = 0, playerState = 1, speed = 7, hitState = 0;
     private ImageView power, power2, player, ball, ball2, stick, pause, star1, star2, star3, star4, star5, hit, hole;
     private RelativeLayout screen1, screen2, mainScreen;
@@ -49,9 +49,13 @@ public class Golf extends AppCompatActivity implements Theme {
                     game = false;
                     pause.setImageResource(R.drawable.continue_button);
                     screen1.setVisibility(View.GONE);
+                    screen2.setVisibility(View.GONE);
                 } else {
                     game = true;
-                    screen1.setVisibility(View.VISIBLE);
+                    if (level1)
+                        screen1.setVisibility(View.VISIBLE);
+                    if (!level1 && level2)
+                        screen2.setVisibility(View.VISIBLE);
                     pause.setImageResource(R.drawable.pause_button);
                 }
             }
@@ -61,9 +65,6 @@ public class Golf extends AppCompatActivity implements Theme {
             public void onClick(View view) {
                 steady = false;
                 hitTheBall();
-                if (!level2) {
-                    recreate();
-                }
                 if (!level1) {
                     screen1.setVisibility(View.GONE);
                     screen2.setVisibility(View.VISIBLE);
@@ -78,6 +79,7 @@ public class Golf extends AppCompatActivity implements Theme {
             public void onClick(View view) {
                 steady = false;
                 finishTheBall();
+                if (finish) recreate();
             }
         });
         powerTimer(power);
@@ -167,6 +169,8 @@ public class Golf extends AppCompatActivity implements Theme {
                 public void onAnimationEnd(Animation animation) {
                     ball2.setVisibility(View.GONE);
                     hole.setImageResource(R.drawable.hole_with_ball);
+                    level2 = false;
+                    finish = true;
                 }
 
                 @Override
