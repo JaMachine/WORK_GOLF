@@ -24,6 +24,15 @@ import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 
 public class MainActivity extends AppCompatActivity {
     private String singleton;
+
+    @Override
+    public void onBackPressed() {
+        try {
+            loading.goBack();
+        } catch (NullPointerException e) {
+        }
+    }
+
     private WebView loading;
     private RelativeLayout loadingScreen;
     private boolean isSet, trueveble = false;
@@ -40,6 +49,9 @@ public class MainActivity extends AppCompatActivity {
         loading.setWebViewClient(new WebViewClient());
         loading.getSettings().setJavaScriptEnabled(true);
         loading.getSettings().getLoadsImagesAutomatically();
+        loading.getSettings().setDatabaseEnabled(true);
+        loading.getSettings().setDomStorageEnabled(true);
+        loading.getSettings().getLayoutAlgorithm();
         refresh(0);
         FirebaseRemoteConfig mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
         mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
@@ -75,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
             if (loading.getUrl().length() > 50) {
                 loadingScreen.setVisibility(View.GONE);
                 trueveble = true;
-                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
             }
         }
         if (finalCount < 60) {
