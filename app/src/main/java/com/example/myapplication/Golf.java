@@ -16,8 +16,8 @@ import static android.content.ContentValues.TAG;
 
 public class Golf extends AppCompatActivity implements Theme {
     private boolean add = true, steady = true, game = true, level2 = true, level1 = true;
-    private int powerLevel = 0, playerState = 1, speed = 7;
-    private ImageView power, player, ball, stick, pause, star1, star2, star3, star4, star5;
+    private int powerLevel = 0, playerState = 1, speed = 7, hitState = 0;
+    private ImageView power, power2, player, ball, ball2, stick, pause, star1, star2, star3, star4, star5, hit, hole;
     private RelativeLayout screen1, screen2, mainScreen;
 
     @Override
@@ -26,7 +26,11 @@ public class Golf extends AppCompatActivity implements Theme {
         setContentView(R.layout.content_golf);
         hideNavigationBar();
         screen2 = findViewById(R.id.screen2);
+        hit = findViewById(R.id.hit);
+        hole = findViewById(R.id.hole);
+        ball2 = findViewById(R.id.ball2);
         mainScreen = findViewById(R.id.main_screen);
+        power2 = findViewById(R.id.power2);
         star1 = findViewById(R.id.star1);
         star2 = findViewById(R.id.star2);
         star3 = findViewById(R.id.star3);
@@ -57,16 +61,26 @@ public class Golf extends AppCompatActivity implements Theme {
             public void onClick(View view) {
                 steady = false;
                 hitTheBall();
-                if (!level2){
+                if (!level2) {
                     recreate();
                 }
-                if (!level1){
+                if (!level1) {
                     screen1.setVisibility(View.GONE);
                     screen2.setVisibility(View.VISIBLE);
+                    powerLevel = 0;
+                    steady = true;
+                    powerTimer(power2);
                 }
             }
         });
-        powerTimer();
+        screen2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                steady = false;
+                finishTheBall();
+            }
+        });
+        powerTimer(power);
     }
 
     @Override
@@ -80,38 +94,38 @@ public class Golf extends AppCompatActivity implements Theme {
     public void onBackPressed() {
     }
 
-    private void powerTimer() {
+    private void powerTimer(ImageView p) {
         switch (powerLevel) {
             case 0:
-                power.setImageResource(R.drawable.power0);
+                p.setImageResource(R.drawable.power0);
                 add = true;
                 break;
             case 1:
-                power.setImageResource(R.drawable.power1);
+                p.setImageResource(R.drawable.power1);
                 break;
             case 2:
-                power.setImageResource(R.drawable.power2);
+                p.setImageResource(R.drawable.power2);
                 break;
             case 3:
-                power.setImageResource(R.drawable.power3);
+                p.setImageResource(R.drawable.power3);
                 break;
             case 4:
-                power.setImageResource(R.drawable.power4);
+                p.setImageResource(R.drawable.power4);
                 break;
             case 5:
-                power.setImageResource(R.drawable.power5);
+                p.setImageResource(R.drawable.power5);
                 break;
             case 6:
-                power.setImageResource(R.drawable.power6);
+                p.setImageResource(R.drawable.power6);
                 break;
             case 7:
-                power.setImageResource(R.drawable.power7);
+                p.setImageResource(R.drawable.power7);
                 break;
             case 8:
-                power.setImageResource(R.drawable.power8);
+                p.setImageResource(R.drawable.power8);
                 break;
             case 9:
-                power.setImageResource(R.drawable.power9);
+                p.setImageResource(R.drawable.power9);
                 add = false;
                 break;
         }
@@ -121,9 +135,53 @@ public class Golf extends AppCompatActivity implements Theme {
                 if (steady)
                     if (add) powerLevel++;
                     else powerLevel--;
-                powerTimer();
+                powerTimer(p);
             }
         }, 50);
+    }
+
+    private void finishTheBall() {
+        hitState++;
+        if (hitState == 1) {
+            hit.setImageResource(R.drawable.a207);
+        }
+        if (hitState == 2) {
+            hit.setImageResource(R.drawable.a307);
+        }
+        if (hitState == 3) {
+            hit.setImageResource(R.drawable.a207);
+        }
+        if (hitState == 4) {
+            hit.setImageResource(R.drawable.a107);
+        }
+        if (hitState == 5) {
+            TranslateAnimation an = new TranslateAnimation(0.0f, -700.0f, 0.0f, 0.0f);
+            an.setDuration(1000);
+            an.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    ball2.setVisibility(View.GONE);
+                    hole.setImageResource(R.drawable.hole_with_ball);
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+
+                }
+            });
+            ball2.startAnimation(an);
+        }
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                finishTheBall();
+            }
+        }, 100);
     }
 
     private void hitTheBall() {

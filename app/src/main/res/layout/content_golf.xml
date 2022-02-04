@@ -106,7 +106,7 @@
         android:id="@+id/screen2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/back_with_hole">
+        android:background="@drawable/back_without_hole">
 
         <ImageView
             android:id="@+id/power2"
@@ -124,8 +124,16 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="-40dp"
             android:layout_marginBottom="30dp"
-            android:layout_toRightOf="@id/ball2"
+            android:layout_toRightOf="@id/fantomBall"
             android:src="@drawable/a107" />
+
+        <ImageView
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:id="@+id/hole"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="60dp"
+            android:src="@drawable/hole" />
 
         <ImageView
             android:id="@+id/ball2"
@@ -135,6 +143,14 @@
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="40dp"
             android:src="@drawable/ball08" />
+
+        <ImageView
+            android:id="@+id/fantomBall"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="40dp" />
 
     </RelativeLayout>
 
